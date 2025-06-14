@@ -71,6 +71,17 @@ class HomePage extends HookWidget {
                           const SizedBox(height: 8),
                           CommonUrlImage(index: index),
                         ],
+                    ),
+                    onTap:
+                        () => locator<NavigationService>().push(
+                          MaterialPageRoute(
+                            builder:
+                                (_) => BlocProvider(
+                                  create: (context) => DetailsCubit(),
+                                  child: DetailsPage(
+                                    movieId: state.movieList?[index].id,
+                                  ),
+                                ),
                       ),
                     ),
                   );
