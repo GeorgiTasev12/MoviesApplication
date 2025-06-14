@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/locator.dart';
+import 'package:movies_app/services/navigation.dart';
+import 'package:movies_app/views/home/cubit/home_cubit.dart';
 import 'package:movies_app/views/home/home_page.dart';
 
 void main() {
+  setupLocator();
+
   runApp(const MyApp());
 }
 
@@ -10,6 +16,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: MaterialApp(
+        title: 'Movies Application',
+        navigatorKey: NavigationService.navigatorKey,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: HomePage(),
+      ),
+    );
   }
 }
