@@ -17,8 +17,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(), 
-      child: HomePage(),
+      create: (context) => HomeCubit(),
+      child: MaterialApp(
+        title: 'Movies Application',
+        navigatorKey: NavigationService.navigatorKey,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: HomePage(),
+      ),
     );
   }
 }
