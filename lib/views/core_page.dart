@@ -5,8 +5,8 @@ class CorePage extends StatelessWidget {
   final bool hasAppBar;
 
   const CorePage({
-    super.key, 
-    required this.child, 
+    super.key,
+    required this.child,
     this.hasAppBar = false,
   });
 
@@ -22,6 +22,7 @@ class CorePage extends StatelessWidget {
           ? AppBar(title: const Text('Core Page')) 
           : null,
         body: child,
+        backgroundColor: Color.fromARGB(255, 85, 71, 68),
       ),
     );
   }
