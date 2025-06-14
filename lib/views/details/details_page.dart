@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:movies_app/common/common_details_text.dart';
+import 'package:movies_app/common/common_details_listitle.dart';
 import 'package:movies_app/common/common_url_image.dart';
 import 'package:movies_app/views/core_page.dart';
 import 'package:movies_app/views/details/cubit/details_cubit.dart';
