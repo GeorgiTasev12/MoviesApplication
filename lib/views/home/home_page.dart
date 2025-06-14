@@ -30,13 +30,7 @@ class HomePage extends HookWidget {
               )
               : ListView.separated(
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      right: 10,
-                      left: 10,
-                      top: 20,
-                    ),
-                    child: ListTile(
+                  return ListTile(
                       tileColor: Color.fromARGB(255, 126, 105, 100),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
