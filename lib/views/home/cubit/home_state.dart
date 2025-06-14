@@ -5,9 +5,14 @@ final class HomeState extends Equatable {
   final String? imageUrl;
   final double? averageRating;
 
-  const HomeState({this.movieList, this.imageUrl, this.averageRating});
+  const HomeState({
+    this.movieList, 
+    this.imageUrl,
+    this.averageRating,
+  });
 
   HomeState copyWith({
+    int? id,
     List<Movie>? movieList,
     String? imageUrl,
     double? averageRating,
@@ -20,5 +25,9 @@ final class HomeState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [movieList, imageUrl, averageRating];
+  List<Object?> get props => [
+    movieList, 
+    imageUrl, 
+    averageRating,
+  ];
 }

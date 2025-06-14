@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movies_app/common/common_url_image.dart';
+import 'package:movies_app/locator.dart';
+import 'package:movies_app/services/navigation.dart';
 import 'package:movies_app/views/core_page.dart';
+import 'package:movies_app/views/details/cubit/details_cubit.dart';
+import 'package:movies_app/views/details/details_page.dart';
 import 'package:movies_app/views/home/cubit/home_cubit.dart';
 
 class HomePage extends HookWidget {
@@ -30,49 +34,59 @@ class HomePage extends HookWidget {
               )
               : ListView.separated(
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      right: 10,
-                      left: 10,
-                      top: 20,
+                  return ListTile(
+                    tileColor: Color.fromARGB(255, 126, 105, 100),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    child: ListTile(
-                      tileColor: Color.fromARGB(255, 126, 105, 100),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                    title: Text(
+                      state.movieList?[index].title ?? 'No Title',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
-                      title: Text(
-                        state.movieList?[index].title ?? 'No Title',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.star_rate_sharp, color: Colors.amber),
-                              const SizedBox(width: 4),
-                              Text(
-                                "${cubit.averageRatings(index)}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white70,
-                                  fontSize: 15,
-                                ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(Icons.star_rate_sharp, color: Colors.amber),
+                            const SizedBox(width: 4),
+                            Text(
+                              "${cubit.averageRatings(index)}",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white70,
+                                fontSize: 15,
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Flexible(
+                          child: CommonUrlImage(
+                            index: index,
+                            url: state.movieList?[index].posterUrl ?? '',
                           ),
-                          const SizedBox(height: 8),
-                          CommonUrlImage(index: index),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                    onTap:
+                        () => locator<NavigationService>().push(
+                          MaterialPageRoute(
+                            builder:
+                                (_) => BlocProvider(
+                                  create: (context) => DetailsCubit(),
+                                  child: DetailsPage(
+                                    movieId: state.movieList?[index].id,
+                                  ),
+                                ),
+                          ),
+                        ),
                   );
                 },
                 separatorBuilder:

@@ -4,8 +4,17 @@ import 'package:movies_app/views/home/cubit/home_cubit.dart';
 
 class CommonUrlImage extends StatelessWidget {
   final int index;
+  final String url;
+  final double? height;
+  final double? width;
 
-  const CommonUrlImage({super.key, required this.index});
+  const CommonUrlImage({
+    super.key,
+    required this.index,
+    required this.url,
+    this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +24,9 @@ class CommonUrlImage extends StatelessWidget {
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
-            state.movieList?[index].posterUrl ?? '',
-            height: 450,
+            url,
+            height: height ?? 450,
+            width: width,
             fit: BoxFit.cover,
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
