@@ -29,50 +29,54 @@ class DetailsPage extends HookWidget {
           hasBackButton: true,
           title: state.movieDetails?.title ?? '',
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: ListView(
-            children: [
-              CommonDetailsListTile(
-                hasLeadingIcon: true,
-                leadingIcon: Icon(
-                  Icons.star_rate_rounded,
-                  color: Colors.amberAccent,
-                  size: 21,
+          child: RefreshIndicator(
+            onRefresh: () async => cubit.getMovieDetails(movieId ?? ''),
+            color: Color.fromARGB(255, 126, 105, 100),
+            child: ListView(
+              children: [
+                CommonDetailsListTile(
+                  hasLeadingIcon: true,
+                  leadingIcon: Icon(
+                    Icons.star_rate_rounded,
+                    color: Colors.amberAccent,
+                    size: 21,
+                  ),
+                  subtitle: '${cubit.averageRatings(movieId ?? '') ?? ''} / 10',
+                  subtitleStyle: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                subtitle: '${cubit.averageRatings(movieId ?? '') ?? ''} / 10',
-                subtitleStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                CommonUrlImage(
+                  index: int.parse(movieId ?? ''),
+                  url: state.movieDetails?.posterUrl ?? '',
                 ),
-              ),
-              CommonUrlImage(
-                index: int.parse(movieId ?? ''),
-                url: state.movieDetails?.posterUrl ?? '',
-              ),
-              const SizedBox(height: 10),
-              Column(
-                children: [
-                  CommonDetailsListTile(
-                    title: 'Genres:',
-                    subtitle: state.movieDetails?.genres.join(', ') ?? '',
-                  ),
-                  const Divider(thickness: 1, color: Colors.white54),
-                  CommonDetailsListTile(
-                    title: 'Release Date:',
-                    subtitle: state.movieDetails?.releaseDate ?? '',
-                  ),
-                  const Divider(thickness: 1, color: Colors.white54),
-                  CommonDetailsListTile(
-                    title: 'Storyline:',
-                    subtitle: state.movieDetails?.storyline ?? '',
-                  ),
-                  const Divider(thickness: 1, color: Colors.white54),
-                  CommonDetailsListTile(
-                    title: 'Actors:',
-                    subtitle: state.movieDetails?.actors.join(', ') ?? '',
-                  ),
-                ],
-              ),
-            ],
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    CommonDetailsListTile(
+                      title: 'Genres:',
+                      subtitle: state.movieDetails?.genres.join(', ') ?? '',
+                    ),
+                    const Divider(thickness: 1, color: Colors.white54),
+                    CommonDetailsListTile(
+                      title: 'Release Date:',
+                      subtitle: state.movieDetails?.releaseDate ?? '',
+                    ),
+                    const Divider(thickness: 1, color: Colors.white54),
+                    CommonDetailsListTile(
+                      title: 'Storyline:',
+                      subtitle: state.movieDetails?.storyline ?? '',
+                    ),
+                    const Divider(thickness: 1, color: Colors.white54),
+                    CommonDetailsListTile(
+                      title: 'Actors:',
+                      subtitle: state.movieDetails?.actors.join(', ') ?? '',
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
