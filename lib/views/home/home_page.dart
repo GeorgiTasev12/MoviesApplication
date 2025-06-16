@@ -52,42 +52,50 @@ class HomePage extends HookWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
-                        title: Text(
-                          state.movieList?[index].title ?? 'No Title',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Column(
+                        subtitle: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.star_rate_sharp,
-                                  color: Colors.amber,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  "${cubit.averageRatings(index)}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white70,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
                             Flexible(
                               child: CommonUrlImage(
                                 index: index,
                                 url: state.movieList?[index].posterUrl ?? '',
-                                height: 250,
+                                width: 150,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    state.movieList?[index].title ?? 'No Title',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.star_rate_sharp,
+                                        color: Colors.amber,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        "${cubit.averageRatings(index)}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.amber,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -143,10 +151,12 @@ class HomePage extends HookWidget {
                               children: [
                                 Text(
                                   state.movieList?[index].title ?? 'No Title',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                   ),
                                 ),
                                 Row(
@@ -154,15 +164,15 @@ class HomePage extends HookWidget {
                                     Icon(
                                       Icons.star_rate_sharp,
                                       color: Colors.amber,
-                                      size: 16,
+                                      size: 19,
                                     ),
                                     SizedBox(width: 4),
                                     Text(
                                       "${cubit.averageRatings(index)}",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
-                                        color: Colors.white70,
-                                        fontSize: 13,
+                                        color: Colors.amber,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ],
