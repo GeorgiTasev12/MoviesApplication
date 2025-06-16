@@ -29,6 +29,7 @@ class HomePage extends HookWidget {
       builder: (context, state) {
         return CorePage(
           hasAppBar: true,
+          title: 'Movie App',
           suffixIcon: IconButton(
             onPressed: () => cubit.switchViews(),
             icon: Icon(
