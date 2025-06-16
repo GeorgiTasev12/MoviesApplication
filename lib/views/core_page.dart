@@ -36,8 +36,7 @@ class CorePage extends StatelessWidget {
               )
               : null,
       body: Padding(
-        padding:
-            contentPadding ?? EdgeInsets.only(right: 10, left: 10, top: 20),
+        padding: contentPadding ?? EdgeInsets.symmetric(horizontal: 10),
         child: child,
       ),
       backgroundColor: Color.fromARGB(255, 85, 71, 68),
