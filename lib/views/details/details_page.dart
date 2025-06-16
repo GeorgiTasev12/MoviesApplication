@@ -26,6 +26,7 @@ class DetailsPage extends HookWidget {
       builder: (context, state) {
         return CorePage(
           hasAppBar: true,
+          hasBackButton: true,
           title: state.movieDetails?.title ?? '',
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: ListView(

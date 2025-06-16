@@ -5,6 +5,7 @@ import 'package:movies_app/services/navigation.dart';
 class CorePage extends StatelessWidget {
   final Widget child;
   final bool hasAppBar;
+  final bool hasBackButton;
   final String? title;
   final EdgeInsets? contentPadding;
   final Widget? suffixIcon;
@@ -13,6 +14,7 @@ class CorePage extends StatelessWidget {
     super.key,
     required this.child,
     this.hasAppBar = false,
+    this.hasBackButton = false,
     this.title,
     this.contentPadding,
     this.suffixIcon,
@@ -26,13 +28,11 @@ class CorePage extends StatelessWidget {
               ? AppBar(
                 title: Text(title ?? '', style: TextStyle(color: Colors.white)),
                 backgroundColor: Color.fromARGB(255, 126, 105, 100),
-                leading: IconButton(
+                leading: hasBackButton ? IconButton(
                   onPressed: () => locator<NavigationService>().pop(),
                   icon: Icon(Icons.arrow_back, color: Colors.white),
-                ),
-                actions: hasAppBar ? [
-                  suffixIcon ?? Text(''),
-                ] : null,
+                ) : null,
+                actions: hasAppBar ? [suffixIcon ?? Text('')] : null,
               )
               : null,
       body: Padding(
