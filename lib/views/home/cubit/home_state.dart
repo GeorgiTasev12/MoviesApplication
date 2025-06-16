@@ -17,13 +17,13 @@ final class HomeState extends Equatable {
     List<Movie>? movieList,
     String? imageUrl,
     double? averageRating,
-    bool? isListView,
+    bool? isViewSwitched,
   }) {
     return HomeState(
       movieList: movieList ?? this.movieList,
       imageUrl: imageUrl ?? this.imageUrl,
       averageRating: averageRating ?? this.averageRating,
-      isViewSwitched: isListView ?? this.isViewSwitched,
+      isViewSwitched: isViewSwitched ?? this.isViewSwitched,
     );
   }
 
