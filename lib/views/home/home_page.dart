@@ -21,80 +21,171 @@ class HomePage extends HookWidget {
       return null;
     }, []);
 
-    return CorePage(
-      child: BlocBuilder<HomeCubit, HomeState>(
-        buildWhen:
-            (previous, current) => previous.movieList != current.movieList,
-        builder: (context, state) {
-          return (state.movieList?.isEmpty ?? false)
-              ? Center(
-                child: const CircularProgressIndicator(
-                  backgroundColor: Colors.blue,
-                ),
-              )
-              : ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    tileColor: Color.fromARGB(255, 126, 105, 100),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen:
+          (previous, current) =>
+              previous.movieList != current.movieList ||
+              previous.isViewSwitched != current.isViewSwitched,
+      builder: (context, state) {
+        return CorePage(
+          hasAppBar: true,
+          suffixIcon: IconButton(
+            onPressed: () => cubit.switchViews(),
+            icon: Icon(
+              state.isViewSwitched ? Icons.window_outlined : Icons.list,
+              color: Colors.white,
+            ),
+          ),
+          child:
+              (state.movieList?.isEmpty ?? false)
+                  ? Center(
+                    child: const CircularProgressIndicator(
+                      backgroundColor: Colors.blue,
                     ),
-                    title: Text(
-                      state.movieList?[index].title ?? 'No Title',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                  )
+                  : state.isViewSwitched
+                  ? ListView.separated(
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        tileColor: Color.fromARGB(255, 126, 105, 100),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        title: Text(
+                          state.movieList?[index].title ?? 'No Title',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.star_rate_sharp, color: Colors.amber),
-                            const SizedBox(width: 4),
-                            Text(
-                              "${cubit.averageRatings(index)}",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white70,
-                                fontSize: 15,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.star_rate_sharp,
+                                  color: Colors.amber,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  "${cubit.averageRatings(index)}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white70,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Flexible(
+                              child: CommonUrlImage(
+                                index: index,
+                                url: state.movieList?[index].posterUrl ?? '',
+                                height: 250,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
-                        Flexible(
-                          child: CommonUrlImage(
-                            index: index,
-                            url: state.movieList?[index].posterUrl ?? '',
-                          ),
-                        ),
-                      ],
+                        onTap:
+                            () => locator<NavigationService>().push(
+                              MaterialPageRoute(
+                                builder:
+                                    (_) => BlocProvider(
+                                      create: (context) => DetailsCubit(),
+                                      child: DetailsPage(
+                                        movieId: state.movieList?[index].id,
+                                      ),
+                                    ),
+                              ),
+                            ),
+                      );
+                    },
+                    separatorBuilder:
+                        (context, index) => const SizedBox(height: 12),
+                    itemCount: state.movieList?.length ?? 0,
+                  )
+                  : GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.6,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
                     ),
-                    onTap:
-                        () => locator<NavigationService>().push(
-                          MaterialPageRoute(
-                            builder:
-                                (_) => BlocProvider(
-                                  create: (context) => DetailsCubit(),
-                                  child: DetailsPage(
-                                    movieId: state.movieList?[index].id,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: Color.fromARGB(255, 126, 105, 100),
+                        child: InkWell(
+                          onTap:
+                              () => locator<NavigationService>().push(
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) => BlocProvider(
+                                        create: (context) => DetailsCubit(),
+                                        child: DetailsPage(
+                                          movieId: state.movieList?[index].id,
+                                        ),
+                                      ),
+                                ),
+                              ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 7,
+                              vertical: 9,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.movieList?[index].title ?? 'No Title',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                    fontSize: 16,
                                   ),
                                 ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star_rate_sharp,
+                                      color: Colors.amber,
+                                      size: 16,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      "${cubit.averageRatings(index)}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white70,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Expanded(
+                                  child: Center(
+                                    child: CommonUrlImage(
+                                      index: index,
+                                      url:
+                                          state.movieList?[index].posterUrl ??
+                                          '',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                  );
-                },
-                separatorBuilder:
-                    (context, index) => const SizedBox(height: 12),
-                itemCount: state.movieList?.length ?? 0,
-              );
-        },
-      ),
+                      );
+                    },
+                  ),
+        );
+      },
     );
   }
 }
