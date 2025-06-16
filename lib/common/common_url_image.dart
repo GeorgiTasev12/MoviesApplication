@@ -25,7 +25,7 @@ class CommonUrlImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
             url,
-            height: height ?? 450,
+            height: height,
             width: width,
             fit: BoxFit.cover,
             loadingBuilder: (context, child, loadingProgress) {

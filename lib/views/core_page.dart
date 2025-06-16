@@ -7,6 +7,7 @@ class CorePage extends StatelessWidget {
   final bool hasAppBar;
   final String? title;
   final EdgeInsets? contentPadding;
+  final Widget? suffixIcon;
 
   const CorePage({
     super.key,
@@ -14,6 +15,7 @@ class CorePage extends StatelessWidget {
     this.hasAppBar = false,
     this.title,
     this.contentPadding,
+    this.suffixIcon,
   });
 
   @override
@@ -28,10 +30,14 @@ class CorePage extends StatelessWidget {
                   onPressed: () => locator<NavigationService>().pop(),
                   icon: Icon(Icons.arrow_back, color: Colors.white),
                 ),
+                actions: hasAppBar ? [
+                  suffixIcon ?? Text(''),
+                ] : null,
               )
               : null,
       body: Padding(
-        padding: contentPadding ?? EdgeInsets.only(right: 10, left: 10, top: 20),
+        padding:
+            contentPadding ?? EdgeInsets.only(right: 10, left: 10, top: 20),
         child: child,
       ),
       backgroundColor: Color.fromARGB(255, 85, 71, 68),
