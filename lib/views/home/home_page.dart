@@ -125,6 +125,7 @@ class HomePage extends HookWidget {
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                     ),
+                    itemCount: state.movieList?.length,
                     itemBuilder: (context, index) {
                       return Card(
                         color: Color.fromARGB(255, 126, 105, 100),
