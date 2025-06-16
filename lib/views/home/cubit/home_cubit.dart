@@ -25,6 +25,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void switchViews() {
-    emit(state.copyWith(isListView: !state.isViewSwitched));
+    emit(state.copyWith(isViewSwitched: !state.isViewSwitched));
   }
 }
