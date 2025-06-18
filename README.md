@@ -1,16 +1,43 @@
-# movies_app
+🎬 MoviesApplication
 
-A new Flutter project.
+A Flutter-based movie ratings app similarly inspired by IMDb. This project allows users to browse and check for details of a particular moviee, providing a sleek and intuitive mobile UI experience.
 
-## Getting Started
+    ⚠️ This application is intended as a demonstration project for review purposes (e.g., job interviews or portfolio showcase). It is not production-ready and does not include installation, deployment, or testing configurations.
 
-This project is a starting point for a Flutter application.
+✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+    Scroll and search for the movie you like to view
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    View detailed movie information
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Change the views between grid and list views
+
+    Clean and modern UI built with Flutter
+
+🛠 Tech Stack
+
+    Framework: Flutter
+
+    Language: Dart
+
+    Architecture: MVVM Architecture with BLoC state management tool.
+
+🚀 Getting Started
+
+To open and run the project:
+
+    Clone the repo:
+
+    git clone https://github.com/GeorgiTasev12/MoviesApplication.git
+
+    Open with your preferred IDE (e.g., VS Code or Android Studio)
+
+    Run using a simulator or connected device
+
+📌 Notes
+
+    An API integration is included (demo-focused)
+
+    No test suite or build pipeline configured
+
+    Ideal for code review, not for deployment
